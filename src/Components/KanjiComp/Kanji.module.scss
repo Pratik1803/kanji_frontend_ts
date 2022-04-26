@@ -1,0 +1,16 @@
+.kanji{
+    width: 400px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(241, 241, 241);
+    border-radius: 20px;
+    margin: 20px 0px;
+}
+
+@media only screen and (max-width:600px){
+    .kanji{
+        width: 90%;
+    }
+}
