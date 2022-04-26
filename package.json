@@ -2,7 +2,7 @@
   "name": "kanjis_ts",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://pratik1803.github.io/kanjis_frontend_ts",
+  "homepage": "https://pratik1803.github.io/kanji_frontend_ts",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
