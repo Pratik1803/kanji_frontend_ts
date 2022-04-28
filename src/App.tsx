@@ -40,6 +40,7 @@ const StatesContext = createContext<Context>({
 
 function App() {
 	const [loading, setLoading] = useState<boolean>(false);
+	const [level, setLevel] = useState<number>(5);
 	const [states, setStates] = useState({
 		showAns: false,
 		currentWord: 0,
@@ -73,7 +74,7 @@ function App() {
 		try {
 			const result = await axios({
 				method: "get",
-				url: "https://kanji-vercel-backend.vercel.app/kanjis",
+				url: `https://kanji-vercel-backend.vercel.app/kanjis?level=${level}`,
 			});
 			console.log(result);
 			setStates((prev) => ({ ...prev, data: result.data.data }));
@@ -93,7 +94,7 @@ function App() {
 
 	useEffect(() => {
 		getData();
-	}, []);
+	}, [level]);
 
 	return (
 		<StatesContext.Provider value={{ states, setStates }}>
@@ -103,8 +104,31 @@ function App() {
 				) : (
 					<>
 						<h1>JLPT-Kanjis</h1>
-						{states.showAns ? <Answer /> : <Kanji />}
-						<Button onClick={generateRandomWord}>Next</Button>
+						<select
+							name="level"
+							id=""
+							value={level}
+							onChange={(e) => {
+								setLevel(Number(e.target.value));
+							}}
+						>
+							<option value="5">5</option>
+							<option value="4">4</option>
+							<option value="3">3</option>
+							<option value="2">2</option>
+							<option value="1">1</option>
+						</select>
+						{states.data.length == 0 ? (
+							<p style={{textAlign:"center"}}>
+								It seems we don't have any words added for N{level} level!😅<br/>
+								Working on them!
+							</p>
+						) : (
+							<>
+								{states.showAns ? <Answer /> : <Kanji />}
+								<Button onClick={generateRandomWord}>Next</Button>
+							</>
+						)}
 					</>
 				)}
 			</div>
