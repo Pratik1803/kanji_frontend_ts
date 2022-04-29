@@ -76,7 +76,7 @@ function App() {
 		try {
 			const result = await axios({
 				method: "get",
-				url: `https://kanji-vercel-backend.vercel.app/api/kanjis?level=${level}`,
+				url: `${process.env.REACT_APP_BACKEND_URL}=${level}`,
 			});
 			setStates((prev) => ({ ...prev, data: result.data.data }));
 		} catch (error) {
