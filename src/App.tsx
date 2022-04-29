@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import React, { useState, createContext, useEffect } from "react";
 import Styles from "./App.module.scss";
 import Answer from "./Components/AnswerComp/Answer";
@@ -11,7 +11,7 @@ const StatesContext = createContext<Context>({
 	states: {
 		showAns: false,
 		currentWord: 0,
-		wordsSequence:[0],
+		wordsSequence: [0],
 		data: [
 			{
 				word: "",
@@ -45,7 +45,7 @@ function App() {
 	const [states, setStates] = useState({
 		showAns: false,
 		currentWord: 0,
-		wordsSequence:[0],
+		wordsSequence: [0],
 		data: [
 			{
 				word: "",
@@ -91,13 +91,13 @@ function App() {
 			...prev,
 			showAns: false,
 			currentWord: random,
-			wordsSequence:[...states.wordsSequence, random]
+			wordsSequence: [...states.wordsSequence, random],
 		}));
 	};
 
-	const getPreviousWord = ()=>{
+	const getPreviousWord = () => {
 		const prevWordIndex = states.wordsSequence.length - 1;
-	}
+	};
 
 	useEffect(() => {
 		getData();
@@ -111,20 +111,23 @@ function App() {
 				) : (
 					<>
 						<h1>JLPT-Kanjis</h1>
-						<select
-							name="level"
-							id=""
-							value={level}
-							onChange={(e) => {
-								setLevel(Number(e.target.value));
-							}}
-						>
-							<option value="5">5</option>
-							<option value="4">4</option>
-							<option value="3">3</option>
-							<option value="2">2</option>
-							<option value="1">1</option>
-						</select>
+						<Stack direction={"row"} spacing={1}>
+							<label htmlFor="level">JLPT Level:</label>
+							<select
+								name="level"
+								id=""
+								value={level}
+								onChange={(e) => {
+									setLevel(Number(e.target.value));
+								}}
+							>
+								<option value="5">5</option>
+								<option value="4">4</option>
+								<option value="3">3</option>
+								<option value="2">2</option>
+								<option value="1">1</option>
+							</select>
+						</Stack>
 						{states.data.length == 0 ? (
 							<p style={{ textAlign: "center" }}>
 								It seems we don't have any words added for N{level} level!😅
