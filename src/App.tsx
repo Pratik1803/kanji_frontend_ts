@@ -11,6 +11,7 @@ const StatesContext = createContext<Context>({
 	states: {
 		showAns: false,
 		currentWord: 0,
+		wordsSequence:[0],
 		data: [
 			{
 				word: "",
@@ -44,6 +45,7 @@ function App() {
 	const [states, setStates] = useState({
 		showAns: false,
 		currentWord: 0,
+		wordsSequence:[0],
 		data: [
 			{
 				word: "",
@@ -74,9 +76,8 @@ function App() {
 		try {
 			const result = await axios({
 				method: "get",
-				url: `https://kanji-vercel-backend.vercel.app/kanjis?level=${level}`,
+				url: `https://kanji-vercel-backend.vercel.app/api/kanjis?level=${level}`,
 			});
-			console.log(result);
 			setStates((prev) => ({ ...prev, data: result.data.data }));
 		} catch (error) {
 			console.log(error);
@@ -85,12 +86,18 @@ function App() {
 	};
 
 	const generateRandomWord = () => {
+		const random = Math.floor(Math.random() * states.data.length);
 		setStates((prev) => ({
 			...prev,
 			showAns: false,
-			currentWord: Math.floor(Math.random() * states.data.length),
+			currentWord: random,
+			wordsSequence:[...states.wordsSequence, random]
 		}));
 	};
+
+	const getPreviousWord = ()=>{
+		const prevWordIndex = states.wordsSequence.length - 1;
+	}
 
 	useEffect(() => {
 		getData();
@@ -119,14 +126,18 @@ function App() {
 							<option value="1">1</option>
 						</select>
 						{states.data.length == 0 ? (
-							<p style={{textAlign:"center"}}>
-								It seems we don't have any words added for N{level} level!😅<br/>
-								Working on them!
+							<p style={{ textAlign: "center" }}>
+								It seems we don't have any words added for N{level} level!😅
+								<br />
+								We're working on them!
 							</p>
 						) : (
 							<>
 								{states.showAns ? <Answer /> : <Kanji />}
-								<Button onClick={generateRandomWord}>Next</Button>
+								<div className={Styles.cmd_buttons}>
+									{/* <Button onClick={getPreviousWord} className={Styles.prev_btn}>Previous</Button> */}
+									<Button onClick={generateRandomWord}>Next</Button>
+								</div>
 							</>
 						)}
 					</>

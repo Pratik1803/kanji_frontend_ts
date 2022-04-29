@@ -4,6 +4,7 @@ export default interface Context {
 		showAns: boolean;
 		currentWord:number;
         data:KanjiResponse[],
+		wordsSequence:number[],
 	};
 	setStates: any;
 }
