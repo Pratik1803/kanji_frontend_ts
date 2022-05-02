@@ -11,7 +11,7 @@ const StatesContext = createContext<Context>({
 	states: {
 		showAns: false,
 		currentWord: 0,
-		wordsSequence: [0],
+		wordIndexShifter: 0,
 		data: [
 			{
 				word: "",
@@ -42,10 +42,11 @@ const StatesContext = createContext<Context>({
 function App() {
 	const [loading, setLoading] = useState<boolean>(false);
 	const [level, setLevel] = useState<number>(5);
+	const [wordSeq, setWordSeq] = useState<number[]>([0]);
 	const [states, setStates] = useState({
 		showAns: false,
 		currentWord: 0,
-		wordsSequence: [0],
+		wordIndexShifter: 0,
 		data: [
 			{
 				word: "",
@@ -85,18 +86,24 @@ function App() {
 		setLoading(false);
 	};
 
-	const generateRandomWord = () => {
-		const random = Math.floor(Math.random() * states.data.length);
+	const getNextWord = () => {
 		setStates((prev) => ({
 			...prev,
 			showAns: false,
-			currentWord: random,
-			wordsSequence: [...states.wordsSequence, random],
+			wordIndexShifter: states.wordIndexShifter - 1,
+			currentWord: states.currentWord + 1,
 		}));
 	};
 
 	const getPreviousWord = () => {
-		const prevWordIndex = states.wordsSequence.length - 1;
+		if (states.currentWord !== 0) {
+			setStates((prev) => ({
+				...prev,
+				showAns: false,
+				wordIndexShifter: states.wordIndexShifter + 1,
+				currentWord: states.currentWord - 1,
+			}));
+		}
 	};
 
 	useEffect(() => {
@@ -105,7 +112,20 @@ function App() {
 
 	return (
 		<StatesContext.Provider value={{ states, setStates }}>
-			<div className={Styles.App}>
+			<div
+				className={Styles.App}
+				onKeyDown={(e) => {
+					e.preventDefault();
+					if(e.key === "ArrowLeft"){
+						getPreviousWord();
+					}else if(e.key === "ArrowRight"){
+						getNextWord();
+					}else if(e.key === "Enter"){
+						setStates(prev=>({...prev, showAns:!states.showAns}))
+					};
+				}}
+				tabIndex={0}
+			>
 				{loading ? (
 					<h1>Loading</h1>
 				) : (
@@ -138,8 +158,10 @@ function App() {
 							<>
 								{states.showAns ? <Answer /> : <Kanji />}
 								<div className={Styles.cmd_buttons}>
-									{/* <Button onClick={getPreviousWord} className={Styles.prev_btn}>Previous</Button> */}
-									<Button onClick={generateRandomWord}>Next</Button>
+									<Button onClick={getPreviousWord} className={Styles.prev_btn}>
+										Previous
+									</Button>
+									<Button onClick={getNextWord}>Next</Button>
 								</div>
 							</>
 						)}

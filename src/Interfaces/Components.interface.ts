@@ -3,8 +3,8 @@ export default interface Context {
 	states: {
 		showAns: boolean;
 		currentWord:number;
+		wordIndexShifter:number,
         data:KanjiResponse[],
-		wordsSequence:number[],
 	};
 	setStates: any;
 }
