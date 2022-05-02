@@ -115,7 +115,6 @@ function App() {
 			<div
 				className={Styles.App}
 				onKeyDown={(e) => {
-					e.preventDefault();
 					if(e.key === "ArrowLeft"){
 						getPreviousWord();
 					}else if(e.key === "ArrowRight"){
