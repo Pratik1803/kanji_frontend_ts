@@ -6,6 +6,22 @@
     align-items: center;
     flex-direction: column;
     padding-top: 10vh;
+    position: relative;
+    .action_btn{
+        width: 100%;
+        text-align: right;
+    }
+    .auth_btns{
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        a{
+            text-decoration: none;
+            .login_btn{
+                margin-right: 20px;
+            }
+        }
+    }
     button{
         margin-bottom: 20px;
         border: 1px solid red;
