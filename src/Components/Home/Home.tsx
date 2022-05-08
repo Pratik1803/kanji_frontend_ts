@@ -144,7 +144,7 @@ function Home() {
 							<option value="1">1</option>
 						</select>
 					</Stack>
-					{states.data.length == 0 ? (
+					{states.data?.length == 0 ? (
 						<p style={{ textAlign: "center" }}>
 							It seems we don't have any words added for N{level} level!😅
 							<br />
