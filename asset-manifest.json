@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/kanji_frontend_ts/static/css/main.91a6579c.css",
-    "main.js": "/kanji_frontend_ts/static/js/main.dd6d104b.js",
+    "main.js": "/kanji_frontend_ts/static/js/main.ffabaafc.js",
     "index.html": "/kanji_frontend_ts/index.html",
     "main.91a6579c.css.map": "/kanji_frontend_ts/static/css/main.91a6579c.css.map",
-    "main.dd6d104b.js.map": "/kanji_frontend_ts/static/js/main.dd6d104b.js.map"
+    "main.ffabaafc.js.map": "/kanji_frontend_ts/static/js/main.ffabaafc.js.map"
   },
   "entrypoints": [
     "static/css/main.91a6579c.css",
-    "static/js/main.dd6d104b.js"
+    "static/js/main.ffabaafc.js"
   ]
 }
