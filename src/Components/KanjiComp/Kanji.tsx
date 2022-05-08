@@ -9,6 +9,7 @@ function Kanji() {
 	function toggleShowAns() {
 		setStates((prev: Context) => ({ ...prev, showAns: !states.showAns }));
 	};
+
   
 	return (
 		<div className={Styles.kanji} onClick={toggleShowAns}>

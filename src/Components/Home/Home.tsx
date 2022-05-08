@@ -21,9 +21,11 @@ function Home() {
 		try {
 			const result = await axios({
 				method: "get",
-				url: `${process.env.REACT_APP_BACKEND_URL}/auth`,
-				withCredentials: true,
+				url: `http://localhost:8000/auth`,
+				withCredentials:true,
 			});
+			console.log(result);
+			
 			if (result.data.auth) {
 				setUserAuth(true);
 			}
@@ -36,7 +38,7 @@ function Home() {
     const logout = async ()=>{
         try {
             const result = await axios({
-                method:"get",
+                method:"post",
                 url:`${process.env.REACT_APP_BACKEND_URL}/logout`,
             });
             console.log(result);
@@ -72,9 +74,9 @@ function Home() {
 		try {
 			const result = await axios({
 				method: "get",
-				url: `${process.env.REACT_APP_BACKEND_URL}/kanjis?level=${level}`,
+				url: `http://localhost:8000/kanjis?level=${level}`,
 			});
-			setStates((prev: any) => ({ ...prev, data: result.data.data }));
+			setStates((prev: any) => ({ ...prev, data: result.data }));
 		} catch (error) {
 			console.log(error);
 		}
@@ -88,7 +90,7 @@ function Home() {
 	}, [level]);
 
 	useEffect(() => {
-		authenticate();
+		// authenticate();
 	}, []);
 
 	return (
