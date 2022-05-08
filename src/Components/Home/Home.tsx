@@ -7,6 +7,7 @@ import Kanji from "../KanjiComp/Kanji";
 import { StatesContext } from "../../App";
 import Cookies from "universal-cookie";
 import axios from "axios";
+import Context from "../../Interfaces/Components.interface";
 
 function Home() {
 	const cookies = new Cookies();
@@ -49,7 +50,7 @@ function Home() {
     };
 
 	const getNextWord = () => {
-		setStates((prev: any) => ({
+		setStates((prev: Context) => ({
 			...prev,
 			showAns: false,
 			wordIndexShifter: states.wordIndexShifter - 1,
@@ -59,7 +60,7 @@ function Home() {
 
 	const getPreviousWord = () => {
 		if (states.currentWord !== 0) {
-			setStates((prev: any) => ({
+			setStates((prev: Context) => ({
 				...prev,
 				showAns: false,
 				wordIndexShifter: states.wordIndexShifter + 1,
@@ -74,9 +75,9 @@ function Home() {
 		try {
 			const result = await axios({
 				method: "get",
-				url: `${process.env.REACT_APP_BACKEND_URL}/level=${level}`,
+				url: `${process.env.REACT_APP_BACKEND_URL}/kanjis?level=${level}`,
 			});
-			setStates((prev: any) => ({ ...prev, data: result.data }));
+			setStates((prev: Context) => ({ ...prev, data: result.data }));			
 		} catch (error) {
 			console.log(error);
 		}
@@ -102,7 +103,7 @@ function Home() {
 				} else if (e.key === "ArrowRight") {
 					getNextWord();
 				} else if (e.key === "Enter") {
-					setStates((prev: any) => ({ ...prev, showAns: !states.showAns }));
+					setStates((prev: Context) => ({ ...prev, showAns: !states.showAns }));
 				}
 			}}
 			tabIndex={0}
