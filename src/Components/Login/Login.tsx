@@ -1,10 +1,11 @@
 import { TextField, Button, Stack } from "@mui/material";
 import axios from "axios";
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Styles from "../../App.module.scss";
 
 function Login() {
+	const navigator = useNavigate();
 	const [user, setUser] = useState({
 		username: "",
 		password: "",
@@ -14,10 +15,15 @@ function Login() {
 		try {
 			const result = await axios({
 				method:"post",
-				url:`${process.env.REACT_APP_BACKEND_URL}/login`,
+				// url:`${process.env.REACT_APP_BACKEND_URL}/login`,
+				url:`${process.env.REACT_APP_BACKEND_URL}/login_user`,
 				data:user,
 			});
-			console.log(result);
+			if(result.data.auth){
+				navigator("/kanji_frontend_ts");
+			}else{
+				alert("Username or password is incorrect!")
+			}
 		} catch (error) {
 			console.log(error);
 		}

@@ -15,7 +15,8 @@ function Signup() {
 		try {
 			const result = await axios({
 				method:"post",
-				url:"http://localhost:8000/api/signup",
+				// url:"http://localhost:8000/api/signup",
+				url:`${process.env.REACT_APP_BACKEND_URL}/create_user`,
 				data:user
 			});
 			console.log(result.data);
