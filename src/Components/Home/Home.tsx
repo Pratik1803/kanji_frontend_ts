@@ -74,7 +74,7 @@ function Home() {
 		try {
 			const result = await axios({
 				method: "get",
-				url: `http://localhost:8000/kanjis?level=${level}`,
+				url: `${process.env.REACT_APP_BACKEND_URL}/level=${level}`,
 			});
 			setStates((prev: any) => ({ ...prev, data: result.data }));
 		} catch (error) {
