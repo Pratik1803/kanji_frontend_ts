@@ -23,10 +23,9 @@ function Home() {
 			const result = await axios({
 				method: "get",
 				url: `http://localhost:8000/auth`,
-				withCredentials:true,
+				withCredentials:true
 			});
-			console.log(result);
-			
+			// console.log(result);
 			if (result.data.auth) {
 				setUserAuth(true);
 			}
@@ -42,13 +41,13 @@ function Home() {
                 method:"post",
                 url:`${process.env.REACT_APP_BACKEND_URL}/logout`,
             });
-            console.log(result);
+            // console.log(result);
             navigator("/kanji_frontend_ts/login")
         } catch (error) {
             console.log(error);
         };
     };
-
+// E1Wies
 	const getNextWord = () => {
 		setStates((prev: Context) => ({
 			...prev,
@@ -77,7 +76,9 @@ function Home() {
 				method: "get",
 				url: `${process.env.REACT_APP_BACKEND_URL}/kanjis?level=${level}`,
 			});
-			setStates((prev: Context) => ({ ...prev, data: result.data }));			
+			setStates((prev: Context) => ({ ...prev, data: result.data }));	
+			console.log(`${process.env.REACT_APP_BACKEND_URL}/kanjis?level=${level}`);
+					
 		} catch (error) {
 			console.log(error);
 		}
